@@ -1,0 +1,77 @@
+import maskpass
+user_details={'shrinithi':123}
+def create_account():
+    global user_details
+    pin=(maskpass.askpass("Enter your pin:",mask='*'))
+    name=input("enter your name:")
+    user_details[name]=int(pin)
+    user_details=dict(user_details,**{name:pin})
+    print(user_details)
+
+balance=0 
+def cash_deposit(amount):
+    global balance
+    balance= amount+balance
+    print("Amount deposit is successful.Your current balance is",balance)
+
+def cash_withdrawal(amount):
+    global balance
+    if amount > balance:
+        print("Your have insufficient balance to withdraw this amount")
+    else:
+        balance=balance-amount
+        print("Amount withdrawal is successful.\n Your current Balance is:",balance)  
+
+def check_balance():
+    print("Your account balance is",balance) 
+while True:
+    while True:
+        name=input("Enter your name:")
+        if name in user_details:
+            pin=maskpass.askpass("Enter your pin:",mask='*')
+            if user_details[name]==int(pin):
+               print("Welcome back....!")
+               break
+            else:
+                print("the pin number you have entered is incorrect")
+                continue
+        else:
+            print("You have not created account yet. Create new Account")
+            create_account()
+            print("Your account is created successfully")
+            break
+          
+    print("\n press 1 for Cash Deposit \n Press 2 for Cash Withdrawal \n Press 3 for Check Balance \n press 4 for exit")
+
+    while True:
+        action=int(input("Choose the actions you have perform "))
+
+        match action:
+        
+            case 1:
+                amount=int(input("Enter your Amount:"))
+                
+                print("Cash Deposit")
+                cash_deposit(amount)
+            case 2:
+                amount=int(input("Enter your Amount:"))
+                print("Cash Withdrawal")
+                cash_withdrawal(amount)
+            case 3:
+                print("Check Balance")
+                check_balance()
+            case 4:
+                print("thanks for using our ATM")
+                exit()
+            case _:
+                print("Choose correct option")
+
+  
+            
+    
+
+
+
+
+
+
